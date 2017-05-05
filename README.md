@@ -43,8 +43,8 @@ Automatically uses Gunicorn for production (when `Flask.debug = False`), Flask's
 
 Configuration environment variables:
 
-- `WEB_CONCURRENCY`
--  `PORT`
+- `WEB_CONCURRENCY` for specifying the number of gunicorn workers. 
+-  `PORT` for binding to a specific port. 
 
 ## File Server: WhiteNoise
 

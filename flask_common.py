@@ -3,10 +3,17 @@ import multiprocessing
 
 import crayons
 import maya
-from flask import request, current_app, url_for
+from flask import request, current_app, url_for, redirect
 from gunicorn import util
 from gunicorn.app.base import Application
 from whitenoise import WhiteNoise
+from flask_cache import Cache
+
+import warnings
+from flask.exthook import ExtDeprecationWarning
+
+warnings.simplefilter('ignore', ExtDeprecationWarning)
+
 
 # Find the stack on which we want to store the database connection.
 # Starting with Flask 0.9, the _app_ctx_stack is the correct one,
@@ -91,7 +98,11 @@ class Common(object):
         """Initializes the Flask application with Common."""
         if not 'COMMON_FILESERVER_DISALBED' in app.config:
             with app.test_request_context() as c:
+
+                # Configure WhiteNoise.
                 app.wsgi_app = WhiteNoise(app.wsgi_app, root=url_for('static', filename='')[1:])
+
+        self.cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
         @app.before_request
         def before_request_callback():
@@ -99,9 +110,15 @@ class Common(object):
 
         @app.after_request
         def after_request_callback(response):
-            response.headers['X-Powered-By'] = 'Flask'
-            response.headers['X-Processed-Time'] = maya.now().epoch - request.start_time.epoch
+            if not 'COMMON_POWERED_BY_DISALBED' in current_app.config:
+                response.headers['X-Powered-By'] = 'Flask'
+            if not 'COMMON_PROCESSED_TIME_DISALBED' in current_app.config:
+                response.headers['X-Processed-Time'] = maya.now().epoch - request.start_time.epoch
             return response
+
+        @app.route('/favicon.ico')
+        def favicon():
+            return redirect(url_for('static', filename='favicon.ico'), code=301)
 
 
     def serve(self, workers=None):
@@ -112,6 +129,8 @@ class Common(object):
 
         else:
             print crayons.yellow('Booting Gunicorn...')
+
+            # Start the web server.
             server = GunicornServer(self.app, workers=workers or number_of_gunicorn_workers())
             server.run()
 

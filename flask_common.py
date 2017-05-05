@@ -119,9 +119,9 @@ class Common(object):
 
         @app.after_request
         def after_request_callback(response):
-            if not 'COMMON_POWERED_BY_DISALBED' in current_app.config:
+            if not 'COMMON_POWERED_BY_DISABLED' in current_app.config:
                 response.headers['X-Powered-By'] = 'Flask'
-            if not 'COMMON_PROCESSED_TIME_DISALBED' in current_app.config:
+            if not 'COMMON_PROCESSED_TIME_DISABLED' in current_app.config:
                 response.headers['X-Processed-Time'] = maya.now().epoch - request.start_time.epoch
             return response
 

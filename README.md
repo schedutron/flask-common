@@ -4,24 +4,26 @@ A Flask extension with lots of common time-savers (file-serving, favicons, etc).
 
 An example app:
 
-    from flask import Flask
-    from flask_common import Common
-    import time
+```python
+from flask import Flask
+from flask_common import Common
+import time
 
-    app = Flask(__name__)
-    app.debug = True
+app = Flask(__name__)
+app.debug = True
 
-    common = Common(app)
+common = Common(app)
 
-    @app.route("/")
-    @common.cache.cached(timeout=50)
-    def hello():
-        time.sleep(1)
-        return "Hello World!"
+@app.route("/")
+@common.cache.cached(timeout=50)
+def hello():
+    time.sleep(1)
+    return "Hello World!"
 
 
-    if __name__ == "__main__":
-        common.serve()
+if __name__ == "__main__":
+    common.serve()
+```
 
 ## Nicities
 

@@ -5,9 +5,9 @@ A Flask extension with lots of common time-savers (file-serving, favicons, etc).
 An example app:
 
 ```python
+import time
 from flask import Flask
 from flask_common import Common
-import time
 
 app = Flask(__name__)
 app.debug = True

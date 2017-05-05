@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
 HTTP Headers:
 
-- `X-Powered-By=Flask`.
+- `X-Powered-By: Flask`.
 - `X-Processed-Time: 0.000133037567139`.
 
 Other nice things:

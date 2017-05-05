@@ -90,13 +90,22 @@ class GunicornServer(object):
 class Common(object):
     """Flask-Common."""
     def __init__(self, app=None):
-        self.app = app
+        self.app = None
         if app is not None:
             self.init_app(app)
 
     def init_app(self, app):
         """Initializes the Flask application with Common."""
-        if not 'COMMON_FILESERVER_DISALBED' in app.config:
+        if not hasattr(app, 'extensions'):
+            app.extensions = {}
+            
+        if 'common' in app.extensions:
+            raise RuntimeError("Flask-common extension already initialized")
+        
+        app.extensions['common'] = self
+        self.app = app
+        
+        if not 'COMMON_FILESERVER_DISABLED' in app.config:
             with app.test_request_context() as c:
 
                 # Configure WhiteNoise.

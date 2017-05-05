@@ -27,12 +27,21 @@ if __name__ == "__main__":
 
 ## Nicities
 
+HTTP Headers:
+
 - `X-Powered-By=Flask`.
 - `X-Processed-Time: 0.000133037567139`.
-- Favicon support.
-- `@common.cache.cached(timeout=50)`.
+
+Other nice things:
+
+- `@common.cache.cached(timeout=50)` decorator for caching views in memory. 
+- Favicon support (`/favicon.ico` redirects to `/static/favicon.ico`).
 
 ## Web Server: Gunicorn
+
+Automatically uses Gunicorn for production (when `Flask.debug = False`), Flask's dev server for development. 
+
+Configuration environment variables:
 
 - `WEB_CONCURRENCY`
 -  `PORT`

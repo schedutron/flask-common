@@ -98,13 +98,13 @@ class Common(object):
         """Initializes the Flask application with Common."""
         if not hasattr(app, 'extensions'):
             app.extensions = {}
-            
+
         if 'common' in app.extensions:
-            raise RuntimeError("Flask-common extension already initialized")
-        
+            raise RuntimeError("Flask-Common extension already initialized")
+
         app.extensions['common'] = self
         self.app = app
-        
+
         if not 'COMMON_FILESERVER_DISABLED' in app.config:
             with app.test_request_context() as c:
 

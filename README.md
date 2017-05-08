@@ -25,6 +25,11 @@ if __name__ == "__main__":
     common.serve()
 ```
 
+Next: 
+
+- Put a `favicon.ico` in your `static` folder. 
+- Enjoy!
+
 ## Nicities
 
 HTTP Headers:

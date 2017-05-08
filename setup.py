@@ -14,7 +14,7 @@ if sys.argv[-1] == 'publish':
 
 setup(
     name='Flask-Common',
-    version='0.1.0',
+    version='0.1.1',
     url='https://github.com/kennethreitz/flask-common',
     license='BSD',
     author='Kenneth Reitz',
@@ -24,7 +24,6 @@ setup(
     py_modules=['flask_common'],
     # if you would be using a package instead use packages instead
     # of py_modules:
-    # packages=['flask_sqlite3'],
     zip_safe=False,
     include_package_data=True,
     platforms='any',

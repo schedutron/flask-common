@@ -130,7 +130,7 @@ class Common(object):
             return redirect(url_for('static', filename='favicon.ico'), code=301)
 
 
-    def serve(self, workers=None):
+    def serve(self, workers=None, **kwargs):
         """Serves the Flask application."""
         if self.app.debug:
             print crayons.yellow('Booting Flask development server...')
@@ -140,6 +140,6 @@ class Common(object):
             print crayons.yellow('Booting Gunicorn...')
 
             # Start the web server.
-            server = GunicornServer(self.app, workers=workers or number_of_gunicorn_workers())
+            server = GunicornServer(self.app, workers=workers or number_of_gunicorn_workers(), **kwargs)
             server.run()
 

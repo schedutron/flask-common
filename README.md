@@ -25,6 +25,11 @@ if __name__ == "__main__":
     common.serve()
 ```
 
+Next: 
+
+- Put a `favicon.ico` in your `static` folder. 
+- Enjoy!
+
 ## Nicities
 
 HTTP Headers:
@@ -49,3 +54,10 @@ Configuration environment variables:
 ## File Server: WhiteNoise
 
 Flask-Common automatically configures [WhiteNoise](http://whitenoise.evans.io) to serve your static files.
+
+## Configurations
+
+    app.config['COMMON_FILESERVER_DISABLED'] = 1
+    app.config['COMMON_POWERED_BY_DISABLED'] = 1
+    app.config['COMMON_PROCESSED_TIME_DISABLED'] = 1
+    

@@ -33,7 +33,8 @@ setup(
         'WhiteNoise',
         'crayons',
         'maya',
-        'flask_cache'
+        'flask_cache',
+        'meinheld'
     ],
     classifiers=[
         'Environment :: Web Environment',

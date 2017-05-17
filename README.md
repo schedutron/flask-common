@@ -25,9 +25,9 @@ if __name__ == "__main__":
     common.serve()
 ```
 
-Next: 
+Next:
 
-- Put a `favicon.ico` in your `static` folder. 
+- Put a `favicon.ico` in your `static` folder.
 - Enjoy!
 
 ## Nicities
@@ -39,17 +39,17 @@ HTTP Headers:
 
 Other nice things:
 
-- `@common.cache.cached(timeout=50)` decorator for caching views in memory. 
+- `@common.cache.cached(timeout=50)` decorator for caching views in memory.
 - Favicon support (`/favicon.ico` redirects to `/static/favicon.ico`).
 
-## Web Server: Gunicorn
+## Web Server: Gunicorn + Meinheld
 
-Automatically uses Gunicorn for production (when `Flask.debug = False`), Flask's dev server for development. 
+Automatically uses Gunicorn + Meinheld for production (when `Flask.debug = False`), Flask's dev server for development.
 
 Configuration environment variables:
 
-- `WEB_CONCURRENCY` for specifying the number of synchronous gunicorn workers. 
--  `PORT` for binding to a specific port. 
+- `WEB_CONCURRENCY` for specifying the number of synchronous gunicorn workers.
+-  `PORT` for binding to a specific port.
 
 ## File Server: WhiteNoise
 
@@ -60,4 +60,4 @@ Flask-Common automatically configures [WhiteNoise](http://whitenoise.evans.io) t
     app.config['COMMON_FILESERVER_DISABLED'] = 1
     app.config['COMMON_POWERED_BY_DISABLED'] = 1
     app.config['COMMON_PROCESSED_TIME_DISABLED'] = 1
-    
+

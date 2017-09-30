@@ -113,7 +113,7 @@ class Common(object):
                 # Configure WhiteNoise.
                 app.wsgi_app = WhiteNoise(app.wsgi_app, root=url_for('static', filename='')[1:])
 
-        self.cache = Cache(app, config={'CACHE_TYPE': 'simple'})
+        self.cache = Cache(app, config={'CACHE_TYPE': app.config.get("COMMON_CACHE_TYPE", 'simple')})
 
         @app.before_request
         def before_request_callback():

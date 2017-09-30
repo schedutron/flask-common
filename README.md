@@ -61,3 +61,7 @@ Flask-Common automatically configures [WhiteNoise](http://whitenoise.evans.io) t
     app.config['COMMON_POWERED_BY_DISABLED'] = 1
     app.config['COMMON_PROCESSED_TIME_DISABLED'] = 1
 
+## Cache configures
+ By default *simple* is a default cache type. But can you change this options, following below steps. [Flask-Cache](https://pythonhosted.org/Flask-Cache/#configuring-flask-cache)
+
+    app.config['COMMON_CACHE_TYPE'] = "simple"

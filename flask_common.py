@@ -37,10 +37,11 @@ except ImportError:
 # --------------
 
 def number_of_gunicorn_workers():
-    if not 'WEB_CONCURRENCY' in os.environ:
+    if 'WEB_CONCURRENCY' not in os.environ:
         return (multiprocessing.cpu_count() * 2) + 1
     else:
         return os.environ['WEB_CONCURRENCY']
+
 
 class WSGIApp(Application):
 
@@ -66,10 +67,11 @@ class WSGIApp(Application):
     def load(self):
         """ Attempt an import of the specified application """
 
-        if isinstance(self.application,str):
+        if isinstance(self.application, str):
             return util.import_app(self.application)
         else:
             return self.application
+
 
 class GunicornServer(object):
 
@@ -105,13 +107,13 @@ class Common(object):
         app.extensions['common'] = self
         self.app = app
 
-        if not 'COMMON_FILESERVER_DISABLED' in app.config:
-            with app.test_request_context() as c:
+        if 'COMMON_FILESERVER_DISABLED' not in app.config:
+            with app.test_request_context():
 
                 # Configure WhiteNoise.
                 app.wsgi_app = WhiteNoise(app.wsgi_app, root=url_for('static', filename='')[1:])
 
-        self.cache = Cache(app, config={'CACHE_TYPE': 'simple'})
+        self.cache = Cache(app, config={'CACHE_TYPE': app.config.get("COMMON_CACHE_TYPE", 'simple')})
 
         @app.before_request
         def before_request_callback():
@@ -119,16 +121,15 @@ class Common(object):
 
         @app.after_request
         def after_request_callback(response):
-            if not 'COMMON_POWERED_BY_DISABLED' in current_app.config:
+            if 'COMMON_POWERED_BY_DISABLED' not in current_app.config:
                 response.headers['X-Powered-By'] = 'Flask'
-            if not 'COMMON_PROCESSED_TIME_DISABLED' in current_app.config:
+            if 'COMMON_PROCESSED_TIME_DISABLED' not in current_app.config:
                 response.headers['X-Processed-Time'] = maya.now().epoch - request.start_time.epoch
             return response
 
         @app.route('/favicon.ico')
         def favicon():
             return redirect(url_for('static', filename='favicon.ico'), code=301)
-
 
     def serve(self, workers=None, **kwargs):
         """Serves the Flask application."""
@@ -140,6 +141,7 @@ class Common(object):
             print(crayons.yellow('Booting Gunicorn...'))
 
             # Start the web server.
-            server = GunicornServer(self.app, workers=workers or number_of_gunicorn_workers(), worker_class='egg:meinheld#gunicorn_worker', **kwargs)
+            server = GunicornServer(
+                self.app, workers=workers or number_of_gunicorn_workers(),
+                worker_class='egg:meinheld#gunicorn_worker', **kwargs)
             server.run()
-

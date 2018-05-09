@@ -7,12 +7,7 @@ from flask import request, current_app, url_for, redirect
 from gunicorn import util
 from gunicorn.app.base import Application
 from whitenoise import WhiteNoise
-from flask_cache import Cache
-
-import warnings
-from flask.exthook import ExtDeprecationWarning
-
-warnings.simplefilter('ignore', ExtDeprecationWarning)
+from flask_caching import Cache
 
 
 # Find the stack on which we want to store the database connection.

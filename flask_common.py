@@ -9,10 +9,12 @@ from gunicorn.app.base import Application
 from whitenoise import WhiteNoise
 from flask_cache import Cache
 
-import warnings
-from flask.exthook import ExtDeprecationWarning
-
-warnings.simplefilter('ignore', ExtDeprecationWarning)
+try:
+    from flask.exthook import ExtDeprecationWarning
+    import warnings
+    warnings.simplefilter('ignore', ExtDeprecationWarning)
+except ImportError:
+    pass # DeprecationWarning only relevant to Flask<1.0
 
 
 # Find the stack on which we want to store the database connection.

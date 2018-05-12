@@ -14,7 +14,7 @@ if sys.argv[-1] == 'publish':
 
 setup(
     name='Flask-Common',
-    version='0.2.0',
+    version='0.3.0',
     url='https://github.com/kennethreitz/flask-common',
     license='BSD',
     author='Kenneth Reitz',

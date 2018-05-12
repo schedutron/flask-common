@@ -33,7 +33,7 @@ setup(
         'WhiteNoise',
         'crayons',
         'maya',
-        'flask_cache',
+        'Flask-Caching',
         'meinheld'
     ],
     classifiers=[

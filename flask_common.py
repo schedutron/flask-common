@@ -7,7 +7,7 @@ from flask import request, current_app, url_for, redirect
 from gunicorn import util
 from gunicorn.app.base import Application
 from whitenoise import WhiteNoise
-from flask_cache import Cache
+from flask_caching import Cache
 
 try:
     from flask.exthook import ExtDeprecationWarning
